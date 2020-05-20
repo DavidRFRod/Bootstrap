@@ -39,6 +39,9 @@
                 switch ($_GET['acao']) {
                     case 'cadastrar':
                         cadastrar($_POST['descricao']);
+                        break; 
+                    case 'alterar':
+                        alterar($_POST['catcodigo'],$_POST['descricao']);
                         break;
                     case 'deletar':
                         deletar($_GET['registro']);

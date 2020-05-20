@@ -1,35 +1,68 @@
+<?php
+//Inicializado primeira a sessão para posteriormente recuperar valores das variáveis globais. 
+session_start();
+?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
     <head>
-        <meta charset="windows-1252">
-
+        <meta charset="utf-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="css/css.css" rel="stylesheet">
         <title>Login</title>
+    </head>
+    <style>
+        body{
+            background-color:#42a5f5;
+        }
+        .card{
+            margin-top:100px;
+        }
 
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
+    </style>
+    <body>
+        <!-- Criado o formulário para o usuário colocar os dados de acesso.  -->
 
-            <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="E-mail">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="Senha">
-                <input type="submit" class="fadeIn fourth" value="Log In">
-            </form>
-
-
-            <div id="formFooter">
-                <a class="underlineHover" href="#">Esqueceu a senha?</a>
+        <div class="row">
+            <div class="conteiner col s12 l4 offset-l4">
+                <form action="funcoes_autenticar.php">
+                    <div class="card">
+                        <div class="card-action blue white-text">
+                            <h3>Login</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-field">
+                                <label for="email">E-mail</label>
+                                <input type="text" id="email">
+                            </div><br>
+                            <div class="form-field">
+                                <label for="senha">Senha</label>
+                                <input type="password" id="senha">
+                            </div><br>
+                            <div class="form-field center-align">
+                                <button class="btn-large blue ">Login</button>
+                            </div><br>
+                        </div>
+                    </div>
+                </form>
             </div>
-
         </div>
-    </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
+
+        <p>
+            <?php
+            //Recuperando o valor da variável global, os erro de login.
+            if (isset($_SESSION['loginErro'])) {
+                echo $_SESSION['loginErro'];
+                unset($_SESSION['loginErro']);
+            }
+            ?>
+        </p>
+   
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('select').formSelect();
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </body>
 </html>
-
-
-
-
-

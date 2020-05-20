@@ -27,7 +27,12 @@
                     </li>
                 </ul>
             </div>
-        </nav> 
+        </nav>
+        <nav class="white">
+        <div class="col s12">
+            <a href="cidade.php" class="breadcrumb white-text">Cadastrar cidade</a>
+        </div>
+    </nav>
         <div class="container">
             <h2 class="text-center">Cidade</h2>
             <?php
@@ -38,6 +43,9 @@
                 switch ($_GET['acao']) {
                     case 'cadastrar':
                         cadastrar($_POST['nome']);
+                        break;
+                    case 'alterar':
+                        alterar($_POST['cidcodigo'], $_POST['cidade']);
                         break;
                     case 'deletar':
                         deletar($_GET['registro']);
@@ -51,7 +59,13 @@
             ?>
 
         </div>
-       
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('select').formSelect();
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </body>
 </html>
 

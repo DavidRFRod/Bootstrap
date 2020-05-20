@@ -50,7 +50,7 @@ function imprimeTabela($aTabela) {
         echo '<td>' . $aLinha['cidcodigo'] . '</td>';
         echo '<td><a href="cliente.php?acao=deletar&registro=' . $aLinha['clicodigo'] . '"> <button class="btn waves-effect waves-light red darken-4 " type="submit" name="action">Deletar
           </button></a></td>';
-        echo '<td><a href="altera.php?acao=alterar&registro=' . $aLinha['clicodigo'] . "&nome=" . $aLinha['clinome'] . "&cpf=" . $aLinha['clicpf'] . "&cidade=" . $aLinha['cidnome'] . '"> <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action">Alterar
+        echo '<td><a href="altera_cliente.php?acao=alterar&registro=' . $aLinha['clicodigo'] . "&nome=" . $aLinha['clinome'] . "&cpf=" . $aLinha['clicpf'] . "&cidade=" . $aLinha['cidnome'] . '"> <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action">Alterar
           </button></a></td>';
         echo '</tr>';
     }
@@ -75,8 +75,8 @@ function imprimeFormularioCadastro() {
     echo ' </br>';
 }
 
-function imprimeFormularioAltera() {
-    echo '<form method="GET" action="function_alterar.php">';
+function imprimeFormularioAlteraCliente() {
+    echo '<form method="POST" action="cliente.php?acao=alterar">';
     echo '<input name="clicodigo" type="hidden" value="'. $_GET['registro'].'">';
     echo '<div class="form-group">';
     echo '<label for="cpf">Nome</label>';
@@ -108,16 +108,3 @@ function select() {
     }
 }
 
-//function selectAltera() {
-//    $sSql = 'SELECT *
-//               FROM MERCADO.TBCIDADE';
-//    $oResultado = pg_query(getConexao(), $sSql);
-//    $aTabela = [];
-//
-//    while ($aLinha = pg_fetch_assoc($oResultado)) {
-//        $aTabela[] = $aLinha;
-//    }
-//    foreach ($aTabela as $aLinha) {
-//        echo '<option value="' . $aLinha['cidcodigo'] . '">' . $aLinha[$_GET['cidnome']] . '</option>';
-//    }
-//}

@@ -31,15 +31,17 @@
 
 
     <div id="conteudo" class="container">
-        <h2 class="text-center">Alterar Cliente</h2>
+        <h2 class="text-center">Alterar Categoria</h2>
 
 
         <?php
         include_once './conexao.php';
-        include_once './funcoes_cliente.php';
+        include_once './funcoes_categoria.php';
+        
         
     
-       imprimeFormularioAltera();
+       
+       imprimeFormularioAlteraCategoria();
         ?>
         
 
