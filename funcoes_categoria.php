@@ -12,23 +12,22 @@ function listar() {
     return $aTabela;
 }
 
-function cadastrar($sDescricao){
+function cadastrar($sDescricao) {
     $sSql = "INSERT INTO mercado.tbcategoria (catdescricao) VALUES ('$sDescricao')";
     pg_query(getConexao(), $sSql);
 }
 
-function deletar($iChave){
-    $sSql = 'DELETE FROM mercado.tbcategoria WHERE catcodigo ='.$iChave. ';';
+function deletar($iChave) {
+    $sSql = 'DELETE FROM mercado.tbcategoria WHERE catcodigo =' . $iChave . ';';
     pg_query(getConexao(), $sSql);
-    
 }
 
 function imprimeTabela($aTabela) {
-    if (empty($aTabela)){
+    if (empty($aTabela)) {
         echo 'Não há registros a serem exibidos';
     }
     echo '<table class="table table-bordered">';
-    echo '<tr>';    
+    echo '<tr>';
     echo '<th>Código</th>';
     echo '<th>Nome</th>';
     echo '<th>Ações</th>';
@@ -37,13 +36,12 @@ function imprimeTabela($aTabela) {
         echo '<tr>';
         echo '<td>' . $aLinha['catcodigo'] . '</td>';
         echo '<td>' . $aLinha['catdescricao'] . '</td>';
-        echo '<td><a href="categoria.php?acao=deletar&registro='.$aLinha['catcodigo'].'">Deletar</a></td>';
+        echo '<td><a href="categoria.php?acao=deletar&registro=' . $aLinha['catcodigo'] . '"><button class="btn waves-effect waves-light red darken-4 " type="submit" name="action">Deletar
+          </button></a></td>';
         echo '</tr>';
     }
     echo '</table>';
 }
-
-imprimeTabela(listar());
 
 function imprimeFormularioCadastro() {
     echo '
@@ -52,9 +50,7 @@ function imprimeFormularioCadastro() {
             <label for="descricao">Descrição</label>
             <input type="text" class="form-control" name="descricao" placeholder="" id="" required>
           </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>';
-    
+           <button class="btn waves-effect waves-light" type="submit" name="action">Cadastrar</button>
+          </form>
+          </br>';
 }
-
-

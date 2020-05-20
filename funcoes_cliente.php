@@ -18,6 +18,11 @@ function cadastrar($sNome, $iCpf, $iCidade) {
     pg_query(getConexao(), $sSql);
 }
 
+function alterar($iClicodigo,$sNome, $iCpf, $iCidade ) {
+    $sSql = "UPDATE MERCADO.TBCLIENTE SET clinome='$sNome',clicpf= '$iCpf',cidcodigo=$iCidade WHERE clicodigo=$iClicodigo";
+    pg_query(getConexao(), $sSql);
+}
+
 function deletar($iChave) {
     $sSql = 'DELETE FROM MERCADO.TBCLIENTE WHERE clicodigo =' . $iChave . ';';
     pg_query(getConexao(), $sSql);
@@ -43,13 +48,14 @@ function imprimeTabela($aTabela) {
         echo '<td>' . $aLinha['clicpf'] . '</td>';
         echo '<td>' . $aLinha['cidnome'] . '</td>';
         echo '<td>' . $aLinha['cidcodigo'] . '</td>';
-        echo '<td><a href="cliente.php?acao=deletar&registro=' . $aLinha['clicodigo'] . '">Deletar</a></td>';
+        echo '<td><a href="cliente.php?acao=deletar&registro=' . $aLinha['clicodigo'] . '"> <button class="btn waves-effect waves-light red darken-4 " type="submit" name="action">Deletar
+          </button></a></td>';
+        echo '<td><a href="altera.php?acao=alterar&registro=' . $aLinha['clicodigo'] . "&nome=" . $aLinha['clinome'] . "&cpf=" . $aLinha['clicpf'] . "&cidade=" . $aLinha['cidnome'] . '"> <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action">Alterar
+          </button></a></td>';
         echo '</tr>';
     }
     echo '</table>';
 }
-
-imprimeTabela(listar());
 
 function imprimeFormularioCadastro() {
     echo '<form method="POST" action="cliente.php?acao=cadastrar">';
@@ -58,27 +64,60 @@ function imprimeFormularioCadastro() {
     echo '<input type="text" class="form-control" name="nome" placeholder="" id="" required>';
     echo '<label for="nome">CPF</label>';
     echo '<input type="text" class="form-control" name="cpf" placeholder="" id="" required>';
-    echo  '</div>';
-    echo ' <div class="form-group">';
-    echo '   <label for="sel1">Cidade:</label>';
-    echo ' <select class="form-control" name="cidade">';
-           select();
+    echo '</div>';
+    echo ' <div class="input-field">';
+    echo ' <select name="cidade">';
+    select();
     echo ' </select>';
     echo '</div>';
-    echo '<button type="submit" class="btn btn-primary">Enviar</button>';
+    echo '<button class="btn waves-effect waves-light" type="submit" name="action">Cadastrar</button>';
     echo ' </form>';
+    echo ' </br>';
+}
+
+function imprimeFormularioAltera() {
+    echo '<form method="GET" action="function_alterar.php">';
+    echo '<input name="clicodigo" type="hidden" value="'. $_GET['registro'].'">';
+    echo '<div class="form-group">';
+    echo '<label for="cpf">Nome</label>';
+    echo '<input type="text" class="form-control" name="nome" placeholder="" value="' . $_GET['nome'] . '"required>';
+    echo '<label for="nome">CPF</label>';
+    echo '<input type="text" class="form-control" name="cpf" placeholder="" value="' . $_GET['cpf'] . '" required>';
+    echo '</div>';
+    echo ' <div class="input-field">';
+    echo ' <select name="cidade">';
+    select();
+    echo ' </select>';
+    echo '</div>';
+    echo '<button class="btn waves-effect waves-light" type="submit" name="action">Alterar</button>';
+    echo ' </form>';
+    echo ' </br>';
 }
 
 function select() {
     $sSql = 'SELECT *
                FROM MERCADO.TBCIDADE';
-    $oResultado = pg_query(getConexao(),$sSql);
+    $oResultado = pg_query(getConexao(), $sSql);
     $aTabela = [];
-    
+
     while ($aLinha = pg_fetch_assoc($oResultado)) {
-        $aTabela[] = $aLinha; 
+        $aTabela[] = $aLinha;
     }
     foreach ($aTabela as $aLinha) {
-        echo '<option value="'.$aLinha['cidcodigo'].'">'.$aLinha['cidnome'].'</option>';
+        echo '<option value="' . $aLinha['cidcodigo'] . '">' . $aLinha['cidnome'] . '</option>';
     }
 }
+
+//function selectAltera() {
+//    $sSql = 'SELECT *
+//               FROM MERCADO.TBCIDADE';
+//    $oResultado = pg_query(getConexao(), $sSql);
+//    $aTabela = [];
+//
+//    while ($aLinha = pg_fetch_assoc($oResultado)) {
+//        $aTabela[] = $aLinha;
+//    }
+//    foreach ($aTabela as $aLinha) {
+//        echo '<option value="' . $aLinha['cidcodigo'] . '">' . $aLinha[$_GET['cidnome']] . '</option>';
+//    }
+//}

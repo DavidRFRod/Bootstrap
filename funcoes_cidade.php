@@ -37,14 +37,12 @@ function imprimeTabela($aTabela) {
         echo '<tr>';
         echo '<td>' . $aLinha['cidcodigo'] . '</td>';
         echo '<td>' . $aLinha['cidnome'] . '</td>';
-        echo '<td><a href="cidade.php?acao=deletar&registro='.$aLinha['cidcodigo'].'">Deletar</a></td>';
+        echo '<td><a href="cidade.php?acao=deletar&registro='.$aLinha['cidcodigo'].'"><button class="btn waves-effect waves-light red darken-4 " type="submit" name="action">Deletar
+          </button></a></td>';
         echo '</tr>';
     }
     echo '</table>';
 }
-
-imprimeTabela(listar());
-
 function imprimeFormularioCadastro() {
     echo '
           <form method="POST" action="cidade.php?acao=cadastrar">
@@ -52,8 +50,9 @@ function imprimeFormularioCadastro() {
             <label for="nome">Cadastrar cidade</label>
             <input type="text" class="form-control" name="nome" placeholder="" id="" required>
           </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>';
+            <button class="btn waves-effect waves-light" type="submit" name="action">Cadastrar</button>
+          </form>
+          </br>';
     
 }
 

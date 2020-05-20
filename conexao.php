@@ -13,6 +13,7 @@ function getConexao() {
                  user=$sUser
                  password=$sPassword";
 
-  return  pg_connect($sConexao);
+  return pg_connect($sConexao);
+ 
     
 }
