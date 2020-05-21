@@ -1,6 +1,9 @@
 <?php
-//Inicializado primeira a sessão para posteriormente recuperar valores das variáveis globais. 
-session_start();
+    include_once './funcoes_autenticar.php';
+
+    if (taLogado()) {
+        header("Location: cliente.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -8,23 +11,13 @@ session_start();
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/css.css" rel="stylesheet">
         <title>Login</title>
     </head>
-    <style>
-        body{
-            background-color:#42a5f5;
-        }
-        .card{
-            margin-top:100px;
-        }
-
-    </style>
     <body>
-        <!-- Criado o formulário para o usuário colocar os dados de acesso.  -->
-
         <div class="row">
             <div class="conteiner col s12 l4 offset-l4">
-                <form action="funcoes_autenticar.php">
+                <form action="autenticar.php" method="post">
                     <div class="card">
                         <div class="card-action blue white-text">
                             <h3>Login</h3>
@@ -32,11 +25,11 @@ session_start();
                         <div class="card-content">
                             <div class="form-field">
                                 <label for="email">E-mail</label>
-                                <input type="text" id="email">
+                                <input type="text" id="email" name="email">
                             </div><br>
                             <div class="form-field">
                                 <label for="senha">Senha</label>
-                                <input type="password" id="senha">
+                                <input type="password" id="senha" name="senha">
                             </div><br>
                             <div class="form-field center-align">
                                 <button class="btn-large blue ">Login</button>
@@ -49,11 +42,17 @@ session_start();
 
         <p>
             <?php
-            //Recuperando o valor da variável global, os erro de login.
-            if (isset($_SESSION['loginErro'])) {
-                echo $_SESSION['loginErro'];
-                unset($_SESSION['loginErro']);
-            }
+              
+                if (isset($_SESSION['loginErro'])) {
+                    $erro = $_SESSION['loginErro'];
+
+                    echo "<div class='row'>
+                        <div class='conteiner col s12 l4 offset-l4'>
+                            <div class='erro card'>{$erro}</div>
+                        </div>
+                    </div>";
+                    unset($_SESSION['loginErro']);
+                }
             ?>
         </p>
    
